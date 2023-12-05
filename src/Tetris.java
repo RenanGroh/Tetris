@@ -7,7 +7,7 @@ public class Tetris {
                 GameForm gameForm = new GameForm();
                 gameForm.setTitle("Tetris");
                 gameForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                gameForm.setSize(1300, 1000); // Ou o tamanho que preferir
+                gameForm.setSize(1200, 1000); // Ou o tamanho que preferir
                 gameForm.setVisible(true);
             }
         });
