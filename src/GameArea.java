@@ -9,9 +9,7 @@ public class GameArea extends JPanel {
     private int gridColumns;
     private int gridCellSize;
 
-    private int[][] block = {{1,0},{1,0},{1,1}};
-
-
+    private Block block;
 
     public GameArea(int columns){
 
@@ -26,16 +24,49 @@ public class GameArea extends JPanel {
         gridCellSize = this.getBounds().width / gridColumns;
         gridRows = this.getBounds().height / gridCellSize;
 
+        spawnBlock();
+    }
+
+    public void spawnBlock(){
+        block = new Block(new int[][]{ {1,0}, {1,0}, {1,1} }, Color.blue);
+
+        block.spwan(gridColumns);
+    }
+
+    public void moveBlockDown(){
+
+        if ( checkBottom() == false) return;
+        block.moveDown();
+        repaint();
+
+    }
+
+    private boolean checkBottom(){
+
+        if (block.getBottomEdge() == gridRows) {
+            return false;
+        }
+        return true;
     }
 
     private void drawBlock(Graphics g) {
-        for(int row = 0; row < block.length; row++){
-            for(int col = 0; col < block[0].length; col++){
-                if(block[row][col] == 1){
-                    g.setColor(Color.red);
-                    g.fillRect(col * gridCellSize,row * gridCellSize, gridCellSize, gridCellSize);
+
+        int h = block.getHeight();
+        int w = block.getWidth();
+        Color c = block.getColor();
+        int[][] shape = block.getShape();
+
+        for(int row = 0; row < h; row++){
+            for(int col = 0; col < w; col++){
+                if(shape[row][col] == 1){
+
+                    int x = (block.getX() + col) * gridCellSize;
+                    int y = (block.getY() + row) * gridCellSize;
+
+                    g.setColor(c);
+                    g.fillRect(x,y, gridCellSize, gridCellSize);
                     g.setColor(Color.black);
-                    g.drawRect(col * gridCellSize,row * gridCellSize, gridCellSize, gridCellSize);
+                    g.drawRect(x,y, gridCellSize, gridCellSize);
                 }
             }
         }
@@ -47,7 +78,7 @@ public class GameArea extends JPanel {
         super.paintComponent(g);
 
 
-        // Create the Grid
+        // show the Grid
 //        for (int i = 0; i < gridRows; i++){
 //            for (int j = 0; j < gridColumns; j++){
 //                g.drawRect(j * gridCellSize,i * gridCellSize, gridCellSize, gridCellSize);
