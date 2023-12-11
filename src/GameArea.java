@@ -9,6 +9,8 @@ public class GameArea extends JPanel {
     private int gridColumns;
     private int gridCellSize;
 
+    private int test;
+
     private Block block;
 
     public GameArea(int columns){
@@ -27,7 +29,9 @@ public class GameArea extends JPanel {
         spawnBlock();
     }
 
+
     public void spawnBlock(){
+        // block in the L shape
         block = new Block(new int[][]{ {1,0}, {1,0}, {1,1} }, Color.blue);
 
         block.spwan(gridColumns);
